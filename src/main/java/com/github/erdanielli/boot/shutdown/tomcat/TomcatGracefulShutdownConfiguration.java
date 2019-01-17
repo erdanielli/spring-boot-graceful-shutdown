@@ -30,7 +30,7 @@ import java.time.Duration;
 public class TomcatGracefulShutdownConfiguration {
 
     @Bean
-    public TomcatGracefulShutdown gracefulShutdown(@Value("${server.await-termination:30s}") Duration timeout) {
+    public TomcatGracefulShutdown gracefulShutdown(@Value("${server.shutdown-timeout:30s}") Duration timeout) {
         return new TomcatGracefulShutdown(timeout);
     }
 

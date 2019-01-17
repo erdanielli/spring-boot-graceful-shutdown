@@ -41,7 +41,7 @@ or `com.github.erdanielli.boot.shutdown.tomcat.TomcatGracefulShutdownConfigurati
 # Max duration to wait for pending requests to complete
 # Duration values are only supported on Spring Boot 2.1.
 # On Spring Boot 2.0 you must provide the value in milliseconds.
-server.await-timeout=30s    
+server.shutdown-timeout=30s    
 ```
 
 To enable/disable logging, fine-tune the logger `com.github.erdanielli.boot.shutdown.GracefulShutdown`

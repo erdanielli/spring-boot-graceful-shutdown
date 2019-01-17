@@ -22,16 +22,31 @@ import org.springframework.lang.NonNull;
 
 import java.time.Duration;
 
+/**
+ * A base class for any embedded container interested in graceful shut down support.
+ * It's just a {@link ContextClosedEvent} listener that triggers the graceful shut down routine.
+ *
+ * @see com.github.erdanielli.boot.shutdown.tomcat.TomcatGracefulShutdown
+ * @see com.github.erdanielli.boot.shutdown.undertow.UndertowGracefulShutdown
+ * @author erdanielli
+ */
 public abstract class GracefulShutdown implements ApplicationListener<ContextClosedEvent> {
 
     protected final Log log = LogFactory.getLog(GracefulShutdown.class);
 
     private final Duration timeout;
 
+    /**
+     * Constructor with required timeout.
+     * @param timeout shut down timeout
+     */
     protected GracefulShutdown(@NonNull Duration timeout) {
         this.timeout = timeout;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void onApplicationEvent(ContextClosedEvent event) {
         log.info("Awaiting pending requests");
@@ -42,5 +57,12 @@ public abstract class GracefulShutdown implements ApplicationListener<ContextClo
         }
     }
 
+    /**
+     * The real shut down process goes here.
+     *
+     * @param timeout maximum time to wait for the container to stop gracefully.
+     * @param event the original event that triggered this.
+     * @throws InterruptedException if the shut down process is interrupted.
+     */
     protected abstract void gracefulShutdown(Duration timeout, ContextClosedEvent event) throws InterruptedException;
 }

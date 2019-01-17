@@ -25,6 +25,12 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * {@link GracefulShutdown GracefulShutdown} implementation for Tomcat according to comments from
+ * <a href="https://github.com/spring-projects/spring-boot/issues/4657">issue #4657</a>
+ *
+ * @author erdanielli
+ */
 final class TomcatGracefulShutdown extends GracefulShutdown implements TomcatConnectorCustomizer {
 
     private volatile Connector connector;
@@ -33,11 +39,17 @@ final class TomcatGracefulShutdown extends GracefulShutdown implements TomcatCon
         super(timeout);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void customize(Connector connector) {
         this.connector = connector;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void gracefulShutdown(Duration timeout, ContextClosedEvent event) throws InterruptedException {
         connector.pause();

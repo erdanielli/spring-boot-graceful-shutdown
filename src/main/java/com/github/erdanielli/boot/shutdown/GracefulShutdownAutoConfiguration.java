@@ -21,6 +21,11 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+/**
+ * {@link org.springframework.boot.autoconfigure.EnableAutoConfiguration Auto-configuration} for graceful shutdown.
+ *
+ * @author erdanielli
+ */
 @Configuration
 @ConditionalOnWebApplication
 public class GracefulShutdownAutoConfiguration {

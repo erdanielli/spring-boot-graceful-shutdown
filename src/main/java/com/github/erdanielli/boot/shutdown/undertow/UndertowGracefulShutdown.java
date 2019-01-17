@@ -23,6 +23,12 @@ import org.springframework.lang.NonNull;
 
 import java.time.Duration;
 
+/**
+ * {@link GracefulShutdown GracefulShutdown} implementation for Undertow according to comments from
+ * <a href="https://github.com/spring-projects/spring-boot/issues/4657">issue #4657</a>
+ *
+ * @author erdanielli
+ */
 final class UndertowGracefulShutdown extends GracefulShutdown implements HandlerWrapper {
 
     private volatile GracefulShutdownHandler handler;
@@ -31,12 +37,18 @@ final class UndertowGracefulShutdown extends GracefulShutdown implements Handler
         super(timeout);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public HttpHandler wrap(HttpHandler handler) {
         this.handler = new GracefulShutdownHandler(handler);
         return this.handler;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void gracefulShutdown(Duration timeout, ContextClosedEvent event) throws InterruptedException {
         handler.shutdown();

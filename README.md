@@ -6,10 +6,13 @@ I hope the Spring Boot team will come to an "official" solution soon, but until 
 ### Limitations
 
 1. Supports only servlet based web applications;
-2. Undertow is prefered, but Tomcat is also supported;
-3. No Jetty support.
+2. Undertow is preferred, but Tomcat is also supported;
+3. No Jetty support yet.
 
 ### Installation
+
+This library has no transitive dependencies and is a complement to an already functional environment. 
+It assumes that you added all the desidered spring-boot-starters previously.
 
 - If you're on Spring Boot 2.1
 ```
@@ -28,11 +31,11 @@ I hope the Spring Boot team will come to an "official" solution soon, but until 
 </dependency>
 ```
 
-This library is auto-configured when allowed. If you prefer importing configurations manually,
+This library is auto-configured. If you prefer importing configurations manually,
 them you'll need to import `com.github.erdanielli.boot.shutdown.undertow.UndertowGracefulShutdownConfiguration` 
 or `com.github.erdanielli.boot.shutdown.tomcat.TomcatGracefulShutdownConfiguration`
 
-### Custom configuration
+### Custom configurations
 
 ```
 # Max duration to wait for pending requests to complete
@@ -42,3 +45,5 @@ server.await-timeout=30s
 ```
 
 To enable/disable logging, fine-tune the logger `com.github.erdanielli.boot.shutdown.GracefulShutdown`
+
+### Further updates

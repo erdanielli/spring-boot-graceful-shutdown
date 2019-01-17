@@ -26,8 +26,6 @@ import java.time.Duration;
  * A base class for any embedded container interested in graceful shut down support.
  * It's just a {@link ContextClosedEvent} listener that triggers the graceful shut down routine.
  *
- * @see com.github.erdanielli.boot.shutdown.tomcat.TomcatGracefulShutdown
- * @see com.github.erdanielli.boot.shutdown.undertow.UndertowGracefulShutdown
  * @author erdanielli
  */
 public abstract class GracefulShutdown implements ApplicationListener<ContextClosedEvent> {

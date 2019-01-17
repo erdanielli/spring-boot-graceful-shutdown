@@ -47,3 +47,6 @@ server.shutdown-timeout=30s
 To enable/disable logging, fine-tune the logger `com.github.erdanielli.boot.shutdown.GracefulShutdown`
 
 ### Further updates
+
+Further (relevant) comments on issue #4657 (https://github.com/spring-projects/spring-boot/issues/4657) 
+may be integrated here.

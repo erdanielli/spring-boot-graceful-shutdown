@@ -50,3 +50,8 @@ To enable/disable logging, fine-tune the logger `com.github.erdanielli.boot.shut
 
 Further (relevant) comments on issue #4657 (https://github.com/spring-projects/spring-boot/issues/4657) 
 may be integrated here.
+
+### Acknowledgements
+
+- All contributors on issue #4657
+- Mohammad Nadeem's for this great DZone article: https://dzone.com/articles/publish-your-artifacts-to-maven-central

@@ -14,12 +14,13 @@
 
 package com.github.erdanielli.boot.shutdown.undertow;
 
+import io.undertow.servlet.api.DeploymentInfo;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
-import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.context.embedded.undertow.UndertowDeploymentInfoCustomizer;
+import org.springframework.boot.context.embedded.undertow.UndertowEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
-
-import java.time.Duration;
 
 /**
  * {@link org.springframework.context.annotation.Configuration Configuration} to enable graceful shutdown for Undertow.
@@ -30,12 +31,27 @@ import java.time.Duration;
 public class UndertowGracefulShutdownConfiguration {
 
     @Bean
-    public UndertowGracefulShutdown gracefulShutdown(@Value("${server.shutdown-timeout:30s}") Duration timeout) {
+    public UndertowGracefulShutdown gracefulShutdown(@Value("${server.shutdown-timeout:30000}") long timeout) {
         return new UndertowGracefulShutdown(timeout);
     }
 
     @Bean
-    public WebServerFactoryCustomizer<UndertowServletWebServerFactory> undertowCustomizer(UndertowGracefulShutdown handler) {
-        return factory -> factory.addDeploymentInfoCustomizers(info -> info.addInitialHandlerChainWrapper(handler));
+    public EmbeddedServletContainerCustomizer undertowCustomizer(final UndertowGracefulShutdown handler) {
+        return new EmbeddedServletContainerCustomizer() {
+            @Override
+            public void customize(ConfigurableEmbeddedServletContainer container) {
+                if (container instanceof UndertowEmbeddedServletContainerFactory) {
+                    ((UndertowEmbeddedServletContainerFactory) container).addDeploymentInfoCustomizers(
+                            new UndertowDeploymentInfoCustomizer() {
+                                @Override
+                                public void customize(DeploymentInfo deploymentInfo) {
+                                    deploymentInfo.addInitialHandlerChainWrapper(handler);
+                                }
+                            }
+                    );
+                }
+            }
+        };
     }
+
 }

@@ -15,11 +15,10 @@
 package com.github.erdanielli.boot.shutdown.tomcat;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.server.WebServerFactoryCustomizer;
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
-
-import java.time.Duration;
 
 /**
  * {@link org.springframework.context.annotation.Configuration Configuration} to enable graceful shutdown for Tomcat.
@@ -30,12 +29,19 @@ import java.time.Duration;
 public class TomcatGracefulShutdownConfiguration {
 
     @Bean
-    public TomcatGracefulShutdown gracefulShutdown(@Value("${server.shutdown-timeout:30s}") Duration timeout) {
+    public TomcatGracefulShutdown gracefulShutdown(@Value("${server.shutdown-timeout:30000}") long timeout) {
         return new TomcatGracefulShutdown(timeout);
     }
 
     @Bean
-    public WebServerFactoryCustomizer<TomcatServletWebServerFactory> tomcatCustomizer(TomcatGracefulShutdown connector) {
-        return factory -> factory.addConnectorCustomizers(connector);
+    public EmbeddedServletContainerCustomizer tomcatCustomizer(final TomcatGracefulShutdown connector) {
+        return new EmbeddedServletContainerCustomizer() {
+            @Override
+            public void customize(ConfigurableEmbeddedServletContainer container) {
+                if (container instanceof TomcatEmbeddedServletContainerFactory) {
+                    ((TomcatEmbeddedServletContainerFactory) container).addConnectorCustomizers(connector);
+                }
+            }
+        };
     }
 }

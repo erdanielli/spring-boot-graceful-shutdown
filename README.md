@@ -1,4 +1,4 @@
-# spring-boot-graceful-shutdown
+# Spring Boot graceful shutdown support
 Provides graceful shutdown support for Spring Boot.
 The implementation is based on comments from [issue #4657](https://github.com/spring-projects/spring-boot/issues/4657).
 I hope the Spring Boot team will come to an "official" solution soon, but until then this project might do the job.

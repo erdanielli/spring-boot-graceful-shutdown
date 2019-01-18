@@ -11,10 +11,10 @@ the instance to:
   
 ### Installation
 
-This library has no transitive dependencies and assumes that you've added all the desidered spring-boot-starters 
-previously.
+This library has no transitive dependencies and assumes that you've already added all the desired spring-boot-starters 
+dependencies.
 
-If you're using Spring Boot **2.1.x**, just add
+If you're using Spring Boot **2.1**, add
 ```
 <dependency>
   <groupId>com.github.erdanielli</groupId>
@@ -32,16 +32,28 @@ for Spring Boot **2.0** projects, add
   <version>2.0.0</version>
 </dependency>
 ```
+**OR**
 
-This library is auto-configured. If you prefer importing configurations manually,
-them you'll need to import `com.github.erdanielli.boot.shutdown.undertow.UndertowGracefulShutdownConfiguration` 
-**OR** `com.github.erdanielli.boot.shutdown.tomcat.TomcatGracefulShutdownConfiguration`
+for the ancient Spring Boot **1.5**, add
+```
+<dependency>
+  <groupId>com.github.erdanielli</groupId>
+  <artifactId>spring-boot-graceful-shutdown</artifactId>
+  <version>1.5.0</version>
+</dependency>
+```
+
+**AND YOU'RE DONE!**
+
+<sub>... unless you don't enjoy auto-configuration and prefer importing configurations by yourself, 
+import `com.github.erdanielli.boot.shutdown.undertow.UndertowGracefulShutdownConfiguration` **or** 
+`com.github.erdanielli.boot.shutdown.tomcat.TomcatGracefulShutdownConfiguration`</sub>
 
 ### Custom configurations
 
 ```
 # Max duration to wait for pending requests to complete
-# Duration values are only supported on Spring Boot 2.1.
+# Duration values are only supported by Spring Boot 2.1.
 # Previous versions must provide the value in milliseconds (30000)
 server.shutdown-timeout=30s    
 ```
@@ -50,8 +62,8 @@ To enable/disable logging, fine-tune the logger `com.github.erdanielli.boot.shut
 
 ### Limitations
 
-1. Only servlet based runtime is supported (reactive runtime is on the way...);
-2. Undertow is preferred, but Tomcat is also supported (see _Caveats_ below);
+1. Only servlet-based runtime is supported;
+2. Undertow is preferred, Tomcat is also supported (see _Caveats_ below);
 3. No Jetty support yet.
 
 ### Caveats

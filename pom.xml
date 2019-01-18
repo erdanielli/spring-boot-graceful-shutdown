@@ -72,14 +72,6 @@
     </dependencies>
 	<build>
         <defaultGoal>clean install</defaultGoal>
-        <resources>
-            <resource>
-                <directory>${project.basedir}</directory>
-                <includes>
-                    <include>LICENSE*</include>
-                </includes>
-            </resource>
-        </resources>
 	</build>
     <profiles>
         <profile>

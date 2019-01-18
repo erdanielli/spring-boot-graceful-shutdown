@@ -19,7 +19,7 @@ It assumes that you added all the desidered spring-boot-starters previously.
 <dependency>
   <groupId>com.github.erdanielli</groupId>
   <artifactId>spring-boot-graceful-shutdown</artifactId>
-  <version>2.1.0</version>
+  <version>2.1.1</version>
 </dependency>
 ```
 - If you're on Spring Boot 2.0

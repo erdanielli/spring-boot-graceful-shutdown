@@ -30,8 +30,8 @@ import java.time.Duration;
 public class UndertowGracefulShutdownConfiguration {
 
     @Bean
-    public UndertowGracefulShutdown gracefulShutdown(@Value("${server.shutdown-timeout:30s}") Duration timeout) {
-        return new UndertowGracefulShutdown(timeout);
+    public UndertowGracefulShutdown gracefulShutdown(@Value("${server.shutdown-timeout:30000}") int timeout) {
+        return new UndertowGracefulShutdown(Duration.ofMillis(timeout));
     }
 
     @Bean

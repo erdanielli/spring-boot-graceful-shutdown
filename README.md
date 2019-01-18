@@ -1,7 +1,7 @@
 # Spring Boot graceful shutdown support
-Provides graceful shutdown support for Spring Boot.
-The implementation is based on comments from [issue #4657](https://github.com/spring-projects/spring-boot/issues/4657).
-I hope the Spring Boot team will come to an "official" solution soon, but until then this project might do the job.
+A feature still missing (since ever), this "draft" implementation is based on comments from 
+[issue #4657](https://github.com/spring-projects/spring-boot/issues/4657). Until the "official" solution arrives, 
+feel free to test-drive and contribute.  
 
 ### What is graceful shutdown?
 Is a way to don't upset your clients when you need to update your cluster. When the shutdown signal comes, you expect 
@@ -24,7 +24,7 @@ If you're using Spring Boot **2.1.x**, just add
 ```
 **OR**
 
-for Spring Boot **2.0** apps, add
+for Spring Boot **2.0** projects, add
 ```
 <dependency>
   <groupId>com.github.erdanielli</groupId>

@@ -1,3 +1,5 @@
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.erdanielli/spring-boot-graceful-shutdown/badge.png)](https://maven-badges.herokuapp.com/maven-central/com.github.erdanielli/spring-boot-graceful-shutdown)
+
 # Spring Boot graceful shutdown support
 A feature still missing (since ever), this "draft" implementation is based on comments from 
 [issue #4657](https://github.com/spring-projects/spring-boot/issues/4657). Until the "official" solution arrives, 
